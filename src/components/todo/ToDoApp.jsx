@@ -1,14 +1,14 @@
 import React , {Component} from 'react'
-import {BrowserRouter as Router, Route, Switch, Link} from 'react-router-dom'
-import AuthenticationService from './AuthenticationService'
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
 import AuthenticatedRoute from './AuthenticatedRoute'
 import LoginComponent from './LoginComponent'
 import WelcomeComponent from './WelcomeComponent'
-import TodosComponent from './TodosComponent'
+import ListTodosComponent from './ListTodosComponent'
 import LogoutComponent from './LogoutComponent'
 import HeaderComponent from './HeaderComponent'
 import FooterComponent from './FooterComponent'
 import ErrorComponent from './ErrorComponent'
+import TodosComponent from './TodosComponent'
 
 class TodoApp extends Component{
 
@@ -21,7 +21,8 @@ class TodoApp extends Component{
                             <Route path="/" exact component={LoginComponent}/>
                             <Route path="/login" exact component={LoginComponent}/>
                             <AuthenticatedRoute path="/welcome/:name" exact component={WelcomeComponent}/>
-                            <AuthenticatedRoute path="/todos" exact component={TodosComponent}/>
+                            <AuthenticatedRoute path="/listTodos" exact component={ListTodosComponent}/>
+                            <AuthenticatedRoute path="/updateTodos/:id" exact component={TodosComponent}/>
                             <AuthenticatedRoute path="/logout" exact component={LogoutComponent}/>
                             <Route component={ErrorComponent}/>
                         </Switch>  

@@ -35,20 +35,42 @@ class LoginComponent extends Component{
     }
 
     loginClicked = ()=>{
-        if(this.state.username === 'winju' && this.state.password === 'abc'){
 
-            AuthenticationService.registerSuccesssfulLogin(this.state.username, this.state.password);
-            this.setState({
-                login : true,
-                firstTime : 1
-            })
-            this.props.history.push(`/welcome/${this.state.username}`)
-        }else{
-            this.setState({
-                login : false,
-                firstTime : 1
-            })
-        }
+        // AuthenticationService.executeSpringAuthentication(this.state.username, this.state.password)
+        // .then(()=>{
+        //         AuthenticationService.registerSuccesssfulLogin(this.state.username, this.state.password);
+        //         this.setState({
+        //             login : true,
+        //             firstTime : 1
+        //         })
+        //         this.props.history.push(`/welcome/${this.state.username}`)
+        //     }
+        // )
+        // .catch(()=>{
+        //         this.setState({
+        //             login : false,
+        //             firstTime : 1
+        //         })
+        //      }
+        // )
+
+        AuthenticationService.executeJWTAuthentication(this.state.username, this.state.password)
+        .then((response)=>{
+                AuthenticationService.registerSuccesssfulLoginForJWT(this.state.username, response.data.token);
+                this.setState({
+                    login : true,
+                    firstTime : 1
+                })
+                this.props.history.push(`/welcome/${this.state.username}`)
+            }
+        )
+        .catch(()=>{
+                this.setState({
+                    login : false,
+                    firstTime : 1
+                })
+             }
+        )
         
         console.log('In loginchecked ',this.state.login);
     }
